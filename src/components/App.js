@@ -1,5 +1,4 @@
 import React, { useState, useReducer } from "react";
-import "./../styles/App.css";
 
 const states = [
   {
@@ -46,10 +45,7 @@ const states = [
         description:
           "Gwalior is a city in the central Indian state of Madhya Pradesh. It's known for its palaces and temples, including the Sas Bahu Ka Mandir intricately carved Hindu temple. ",
         landmarks: [
-          {
-            name: "Ajaypur",
-            description: "Little less known city Ajaypur."
-          }
+          { name: "Ajaypur", description: "Little less known city Ajaypur." }
         ]
       }
     ]
@@ -86,10 +82,7 @@ const states = [
             description:
               "Located behind the dhanbad junction is must visit place."
           },
-          {
-            name: "MPI Hall",
-            description: "Space for everyone"
-          }
+          { name: "MPI Hall", description: "Space for everyone" }
         ]
       },
       {
@@ -153,10 +146,7 @@ const states = [
             name: "Bamuni Hills",
             description: "Best location for photoshoots"
           },
-          {
-            name: "Bhujkhowa Bazar",
-            description: "Central Market for Tezpur"
-          }
+          { name: "Bhujkhowa Bazar", description: "Central Market for Tezpur" }
         ]
       }
     ]
@@ -205,43 +195,59 @@ const states = [
         description:
           "Darbhanga is a city and Municipal Corporation in the Indian state of Bihar. It is the 6th largest city of Bihar, only after Patna, Gaya, Bhagalpur, Muzaffarpur and Purnea. It is the headquarters of Darbhanga district and Darbhanga division and was the seat of the Raj Darbhanga and capital of the Mithila region.",
         landmarks: [
-          {
-            name: "Singhwara",
-            description: "Famous for its Groundnut Market"
-          },
-          {
-            name: "Jale",
-            description: "Famous for its roasted seads market."
-          }
+          { name: "Singhwara", description: "Famous for its Groundnut Market" },
+          { name: "Jale", description: "Famous for its roasted seads market." }
         ]
       }
     ]
   }
 ];
-
 function App() {
   // Do not alter/remove main div
+  const [stateVal, setState] = useState(0);
+  const [cityVal, setCity] = useState(0);
+  const [landVal, setLand] = useState(0);
+  const handleState = (e) => {
+    setState(e.target.value);
+  };
+  const handleCity = (e) => {
+    setCity(e.target.value);
+  };
+  const handleLand = (e) => {
+    setLand(e.target.value);
+  };
+  console.log(stateVal);
   return (
     <div id="main">
-      <select id="state">
-        {states.map((state, idx) => (
-          <option>{state.name}</option>
-        ))}
+      {" "}
+      <select id="state" value={stateVal} onChange={handleState}>
+        {states.map((item, index) => {
+          return <option value={index}>{item.name}</option>;
+        })}
       </select>
-      <select id="city">
-        {states.map((state, idx) =>
-          state.city.map((city) => <option>{city.name}</option>)
-        )}
+      <select id="city" value={cityVal} onChange={handleCity}>
+        {states[stateVal].city.map((item, index) => {
+          return <option value={index}>{item.name}</option>;
+        })}
       </select>
-      <select id="landmark">
-        {states.map((state, idx) =>
-          state.city.map((city) =>
-            city.landmarks.map((landmark) => <option>{landmark.name}</option>)
-          )
-        )}
+      <select id="landmark" value={landVal} onChange={handleLand}>
+        {states[stateVal].city[cityVal].landmarks.map((item, index) => {
+          return <option value={index}>{item.name}</option>;
+        })}
       </select>
+      <div id="state-title">{states[stateVal].name}</div>
+      <div id="state-description">{states[stateVal].description}</div>
+      <div id="city-title">{states[stateVal].city[cityVal].name}</div>
+      <div id="city-description">
+        {states[stateVal].city[cityVal].description}
+      </div>
+      <div id="landmark-title">
+        {states[stateVal].city[cityVal].landmarks[landVal].name}
+      </div>
+      <div id="landmark-description">
+        {states[stateVal].city[cityVal].landmarks[landVal].description}
+      </div>
     </div>
   );
 }
-
 export default App;
