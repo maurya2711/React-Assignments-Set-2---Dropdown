@@ -223,17 +223,17 @@ function App() {
   // Do not alter/remove main div
   return (
     <div id="main">
-      <select>
+      <select id="state">
         {states.map((state, idx) => (
           <option>{state.name}</option>
         ))}
       </select>
-      <select>
+      <select id="city">
         {states.map((state, idx) =>
           state.city.map((city) => <option>{city.name}</option>)
         )}
       </select>
-      <select>
+      <select id="landmark">
         {states.map((state, idx) =>
           state.city.map((city) =>
             city.landmarks.map((landmark) => <option>{landmark.name}</option>)
